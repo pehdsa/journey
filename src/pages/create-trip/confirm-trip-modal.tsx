@@ -7,11 +7,17 @@ import { Input } from "../../components/input";
 interface ConfirmTripModalProps {
     closeConfirmModal: () => void,
     confirmTripCreated: (event: FormEvent<HTMLFormElement>) => void
+    setOwnerName: (ownerName: string) => void,
+    setownerEmail: (ownerEmail: string) => void,
+    isLoading: boolean
 }
 
 export const ConfirmTripModal = ({ 
     closeConfirmModal,
-    confirmTripCreated
+    confirmTripCreated,
+    setOwnerName,
+    setownerEmail,
+    isLoading
 }: ConfirmTripModalProps) => {
     return (
         <Modal 
@@ -29,16 +35,18 @@ export const ConfirmTripModal = ({
                         icon={ <User className="absolute top-1/2 left-3 -translate-y-1/2 text-zinc-400 size-5" /> }
                         name="nome"
                         placeholder="Seu nome completo" 
+                        onChange={event => setOwnerName(event.currentTarget.value)}
                     />
                     <Input 
                         icon={ <Mail className="absolute top-1/2 left-3 -translate-y-1/2 text-zinc-400 size-5" /> }
                         type="email" 
                         name="email" 
                         placeholder="Seu e-mail pessoal" 
+                        onChange={event => setownerEmail(event.currentTarget.value)}
                     />
                 </div>
-                <Button type="submit" size="full">
-                    Confirmar criação da viagem                        
+                <Button disabled={isLoading} type="submit" size="full">
+                    { isLoading ? 'Carregando' : 'Confirmar criação da viagem' }
                 </Button>
             </form>
 
